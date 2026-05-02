@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Veamkodrive — Premium & Elegant design system
+   Dark navy + champagne gold. All colors HSL.
+*/
+
+@layer base {
+  :root {
+    /* Core */
+    --background: 222 45% 7%;            /* deep navy */
+    --foreground: 40 30% 94%;            /* warm off-white */
+
+    --card: 222 38% 11%;
+    --card-foreground: 40 30% 94%;
+
+    --popover: 222 40% 9%;
+    --popover-foreground: 40 30% 94%;
+
+    /* Champagne gold */
+    --primary: 41 65% 60%;
+    --primary-foreground: 222 45% 7%;
+    --primary-glow: 45 80% 70%;
+
+    --secondary: 222 30% 16%;
+    --secondary-foreground: 40 30% 94%;
+
+    --muted: 222 25% 14%;
+    --muted-foreground: 40 10% 65%;
+
+    --accent: 41 55% 50%;
+    --accent-foreground: 222 45% 7%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 40 30% 94%;
+
+    --border: 222 25% 18%;
+    --input: 222 25% 16%;
+    --ring: 41 65% 60%;
+
+    --radius: 0.4rem;
+
+    /* Brand gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(41 70% 55%), hsl(45 85% 70%));
+    --gradient-navy: linear-gradient(180deg, hsl(222 45% 7%), hsl(222 50% 12%));
+    --gradient-hero: linear-gradient(180deg, hsl(222 45% 7% / 0.4) 0%, hsl(222 45% 7% / 0.85) 80%, hsl(222 45% 7%) 100%);
+
+    /* Shadows */
+    --shadow-gold: 0 10px 40px -10px hsl(41 65% 60% / 0.35);
+    --shadow-elevated: 0 20px 60px -20px hsl(222 60% 3% / 0.7);
+    --shadow-card: 0 4px 24px -8px hsl(222 60% 3% / 0.6);
+
+    /* Transitions */
+    --transition-elegant: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Sidebar (unused but kept) */
+    --sidebar-background: 222 45% 7%;
+    --sidebar-foreground: 40 30% 94%;
+    --sidebar-primary: 41 65% 60%;
+    --sidebar-primary-foreground: 222 45% 7%;
+    --sidebar-accent: 222 30% 16%;
+    --sidebar-accent-foreground: 40 30% 94%;
+    --sidebar-border: 222 25% 18%;
+    --sidebar-ring: 41 65% 60%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    letter-spacing: -0.01em;
+  }
+  ::selection { background: hsl(var(--primary) / 0.3); color: hsl(var(--foreground)); }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-gradient-gold { background: var(--gradient-gold); }
+  .bg-gradient-navy { background: var(--gradient-navy); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .shadow-elevated { box-shadow: var(--shadow-elevated); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .transition-elegant { transition: var(--transition-elegant); }
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.6), transparent);
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
