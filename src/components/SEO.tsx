@@ -14,6 +14,8 @@ interface SEOProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   /** Hide from search engines (e.g. cart, profile). */
   noindex?: boolean;
+  /** High-priority resources to preload. */
+  preloads?: { href: string; as: "image" | "video" | "font" | "style" | "script" }[];
 }
 
 const upsertMeta = (selector: string, attrs: Record<string, string>) => {
@@ -35,7 +37,7 @@ const upsertLink = (rel: string, href: string) => {
   el.setAttribute("href", href);
 };
 
-export const SEO = ({ title, description, path, image, jsonLd, noindex }: SEOProps) => {
+export const SEO = ({ title, description, path, image, jsonLd, noindex, preloads }: SEOProps) => {
   const location = useLocation();
   const url = SITE_URL + (path ?? location.pathname);
   const img = image ? (image.startsWith("http") ? image : SITE_URL + image) : `${SITE_URL}/placeholder.svg`;
@@ -75,7 +77,23 @@ export const SEO = ({ title, description, path, image, jsonLd, noindex }: SEOPro
       script.text = JSON.stringify(jsonLd);
       document.head.appendChild(script);
     }
-  }, [fullTitle, desc, url, img, noindex, jsonLd]);
+
+    // PRELOADS
+    const preloadClass = "seo-preload";
+    document.querySelectorAll(`.${preloadClass}`).forEach(el => el.remove());
+    preloads?.forEach(p => {
+      if (!p.href || !p.as) return;
+      const link = document.createElement("link");
+      link.setAttribute("rel", "preload");
+      link.setAttribute("href", p.href);
+      link.setAttribute("as", p.as);
+      link.className = preloadClass;
+      if (p.as === "video") {
+        link.setAttribute("type", "video/mp4");
+      }
+      document.head.appendChild(link);
+    });
+  }, [fullTitle, desc, url, img, noindex, jsonLd, preloads]);
 
   return null;
 };

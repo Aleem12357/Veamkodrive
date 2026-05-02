@@ -19,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { VideoBackground } from "@/components/ui/VideoBackground";
 import { cleanPhone, validatePhone, sanitizeString } from "@/lib/validation";
 import rentHeroVideo from "@/assets/herosection/rent-hero.mp4";
+import { getAssetImage } from "@/lib/assets-images";
 
 interface RentalCar {
   id: string; make: string; model: string; year: number; daily_rate: number; deposit: number;
@@ -136,7 +137,8 @@ const Rent = () => {
         <div className="absolute inset-0 z-0">
           <VideoBackground
             src={rentHeroVideo}
-            fallbackSrc="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop"
+            fallbackSrc={getAssetImage('Audi Q7', 'car') || ""}
+            poster={getAssetImage('Audi Q7', 'car') || ""}
             fallbackAlt="Premium car fleet"
             opacity={0.65}
           />
@@ -271,11 +273,12 @@ const Rent = () => {
                 <TiltCard key={c.id} intensity={5} className="h-full">
                   <article className="bg-card border border-border rounded-xl overflow-hidden group hover:border-primary/60 transition-elegant hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.2)] h-full flex flex-col">
                     <div className="aspect-[16/10] overflow-hidden bg-secondary relative">
-                      {c.image_url ? (
-                        <img src={c.image_url} alt={`${c.make} ${c.model}`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-elegant duration-700" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">No image</div>
-                      )}
+                      <img 
+                        src={getAssetImage(`${c.make} ${c.model}`, 'car') || c.image_url || ""} 
+                        alt={`${c.make} ${c.model}`} 
+                        loading="lazy" 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-elegant duration-700" 
+                      />
                       <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-primary border border-primary/20">
                         Available Now
                       </div>

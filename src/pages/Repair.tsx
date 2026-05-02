@@ -22,6 +22,8 @@ import { GuideBot } from "@/components/ui/GuideBot";
 import { VideoBackground } from "@/components/ui/VideoBackground";
 import { cleanPhone, PHONE_REGEX, sanitizeString } from "@/lib/validation";
 import repairHeroVideo from "@/assets/herosection/repair-hero.mp4";
+import { getRepairImage } from "@/lib/repair-images";
+import { getAssetImage } from "@/lib/assets-images";
 
 interface RepairService {
   id: string;
@@ -125,6 +127,10 @@ const Repair = () => {
         title="Car Repair & Service Booking | Veamkodrive"
         description="Book expert car repair and service by make and model. Genuine OEM parts, transparent pricing, on-time delivery."
         path="/repair"
+        preloads={[
+          { href: repairHeroVideo, as: "video" },
+          { href: getAssetImage('workshop', 'page') || "", as: "image" }
+        ]}
       />
 
       {/* HERO SECTION */}
@@ -132,7 +138,8 @@ const Repair = () => {
         <div className="absolute inset-0 z-0">
           <VideoBackground
             src={repairHeroVideo}
-            fallbackSrc="https://images.unsplash.com/photo-1530906358829-e84b2769270f?q=80&w=2073&auto=format&fit=crop"
+            fallbackSrc={getAssetImage('workshop', 'page') || ""}
+            poster={getAssetImage('workshop', 'page') || ""}
             fallbackAlt="Car repair in garage"
             opacity={0.65}
           />
@@ -232,7 +239,19 @@ const Repair = () => {
                     </div>
                     <Wrench className="h-5 w-5 text-primary/60 group-hover:text-primary transition-elegant" />
                   </div>
-                  {s.description && <p className="text-sm text-muted-foreground mb-4">{s.description}</p>}
+                  
+                  {/* Service Image */}
+                  <div className="relative aspect-[16/10] mb-4 rounded-md overflow-hidden bg-secondary/50 ring-1 ring-border">
+                    <img 
+                      src={getRepairImage(s.service_name) || "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800"} 
+                      alt={s.service_name}
+                      className="w-full h-full object-cover transition-elegant group-hover:scale-110"
+                      loading="lazy"
+                      width={400}
+                      height={250}
+                    />
+                  </div>
+                  {s.description && <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{s.description}</p>}
                   <div className="flex items-center justify-between pt-4 border-t border-border">
                     <div>
                       <p className="text-xs text-muted-foreground">From</p>

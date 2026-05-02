@@ -14,6 +14,7 @@ import { VideoBackground } from "@/components/ui/VideoBackground";
 import consultingHeroVideo from "@/assets/herosection/consulting-hero.mp4";
 import { useAuth } from "@/contexts/AuthContext";
 import { cleanPhone, validatePhone, sanitizeString } from "@/lib/validation";
+import { getAssetImage } from "@/lib/assets-images";
 
 const Consulting = () => {
   const { user } = useAuth();
@@ -58,6 +59,10 @@ const Consulting = () => {
         title="Car Buying Consulting | Expert Advice | Veamkodrive"
         description="Not sure which car to buy? Our specialized car consulting experts will guide you to the perfect vehicle based on your lifestyle, budget, and needs."
         path="/consulting"
+        preloads={[
+          { href: consultingHeroVideo, as: "video" },
+          { href: getAssetImage('consulting-hero', 'page') || "", as: "image" }
+        ]}
       />
 
       {/* HERO SECTION */}
@@ -65,7 +70,8 @@ const Consulting = () => {
         <div className="absolute inset-0 z-0">
           <VideoBackground
             src={consultingHeroVideo}
-            fallbackSrc="https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=2071&auto=format&fit=crop"
+            fallbackSrc={getAssetImage('consulting-hero', 'page') || ""}
+            poster={getAssetImage('consulting-hero', 'page') || ""}
             fallbackAlt="Consulting Expert"
             opacity={0.65}
           />
@@ -162,10 +168,10 @@ const Consulting = () => {
             
             <div className="relative h-[600px] w-full hidden md:block">
               <TiltCard intensity={15} className="absolute top-0 right-0 w-[80%] h-[70%] rounded-2xl overflow-hidden shadow-2xl z-10 border-4 border-background">
-                <img src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?q=80&w=2069&auto=format&fit=crop" alt="Premium luxury car interior" className="w-full h-full object-cover" />
+                <img src={getAssetImage('consulting-main', 'page') || ""} alt="Premium luxury car interior" className="w-full h-full object-cover" loading="lazy" />
               </TiltCard>
               <TiltCard intensity={20} className="absolute bottom-0 left-0 w-[70%] h-[60%] rounded-2xl overflow-hidden shadow-2xl z-20 border-4 border-background">
-                <img src="https://images.unsplash.com/photo-1503376712341-b040a4242cb6?q=80&w=2070&auto=format&fit=crop" alt="Sportscar tracking" className="w-full h-full object-cover" />
+                <img src={getAssetImage('consulting-hero', 'page') || ""} alt="Sportscar tracking" className="w-full h-full object-cover" loading="lazy" />
               </TiltCard>
             </div>
           </div>

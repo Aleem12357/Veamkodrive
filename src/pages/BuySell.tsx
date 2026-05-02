@@ -12,6 +12,7 @@ import { GuideBot } from "@/components/ui/GuideBot";
 import { VideoBackground } from "@/components/ui/VideoBackground";
 import buysellHeroVideo from "@/assets/herosection/buysell-hero.mp4";
 import { supabase } from "@/integrations/supabase/client";
+import { getAssetImage } from "@/lib/assets-images";
 import { useAuth } from "@/contexts/AuthContext";
 import { cleanPhone, validatePhone, sanitizeString } from "@/lib/validation";
 
@@ -66,7 +67,8 @@ const BuySell = () => {
         <div className="absolute inset-0 z-0">
           <VideoBackground
             src={buysellHeroVideo}
-            fallbackSrc="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop"
+            fallbackSrc={getAssetImage('transact1', 'car') || ""}
+            poster={getAssetImage('transact1', 'car') || ""}
             fallbackAlt="Premium car keys handover"
             opacity={0.65}
           />
@@ -107,11 +109,25 @@ const BuySell = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             <div className="relative h-[600px] w-full hidden lg:block">
-              <TiltCard intensity={15} className="absolute top-10 left-0 w-[75%] h-[60%] rounded-2xl overflow-hidden shadow-2xl z-10 border-4 border-background">
-                <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=2071&auto=format&fit=crop" alt="Buying process" className="w-full h-full object-cover" />
+              <TiltCard intensity={15} className="absolute top-10 left-0 w-[75%] h-[60%] rounded-2xl overflow-hidden shadow-2xl z-10 border-4 border-background bg-secondary/40">
+                <img 
+                  src={getAssetImage('transact1', 'car') || ""} 
+                  alt="Buying process" 
+                  className="w-full h-full object-cover" 
+                  loading="lazy" 
+                  width={600}
+                  height={400}
+                />
               </TiltCard>
-              <TiltCard intensity={25} className="absolute bottom-10 right-0 w-[75%] h-[60%] rounded-2xl overflow-hidden shadow-2xl z-20 border-4 border-background">
-                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop" alt="Sports cars" className="w-full h-full object-cover" />
+              <TiltCard intensity={25} className="absolute bottom-10 right-0 w-[75%] h-[60%] rounded-2xl overflow-hidden shadow-2xl z-20 border-4 border-background bg-secondary/40">
+                <img 
+                  src={getAssetImage('transact2', 'car') || ""} 
+                  alt="Sports cars" 
+                  className="w-full h-full object-cover" 
+                  loading="lazy" 
+                  width={600}
+                  height={400}
+                />
               </TiltCard>
             </div>
 

@@ -4,21 +4,22 @@ import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { GuideBot } from "@/components/ui/GuideBot";
+import { getAssetImage } from "@/lib/assets-images";
 
 const items = [
-  { icon: Wrench, title: "Car Repair", to: "/repair",
+  { icon: Wrench, title: "Car Repair", to: "/repair", image: "workshop",
     desc: "Search by your car make and model, pick the service or part you need, and book in minutes. Or request a custom quote for complex jobs.",
     points: ["Brakes, engine, suspension & more", "Genuine OEM parts", "Transparent pricing"] },
-  { icon: Car, title: "Buy & Sell Cars", to: "/buy-sell",
+  { icon: Car, title: "Buy & Sell Cars", to: "/buy-sell", image: "transact1",
     desc: "Browse our curated inventory of inspected pre-owned vehicles, or list your car for a hassle-free sale.",
     points: ["Multi-point inspection", "Verified history", "Fair market pricing"] },
-  { icon: Compass, title: "Car Buying Consulting", to: "/consulting",
+  { icon: Compass, title: "Car Buying Consulting", to: "/consulting", image: "consulting-hero",
     desc: "Expert guidance to find your perfect vehicle match, without the dealership pressure.",
     points: ["Unbiased, brand-agnostic advice", "Performance & reliability metrics", "Negotiation power"] },
-  { icon: KeyRound, title: "Rent a Car", to: "/rent",
+  { icon: KeyRound, title: "Rent a Car", to: "/rent", image: "rentCar",
     desc: "From compact city cars to executive sedans and 7-seater SUVs — rent by the day or the week.",
     points: ["Insurance included", "24/7 roadside support", "Free cancellation 48h"] },
-  { icon: Cog, title: "Car Parts", to: "/parts",
+  { icon: Cog, title: "Car Parts", to: "/parts", image: "carParts",
     desc: "Genuine OEM and trusted aftermarket parts for every major brand. Filter by your car make and model.",
     points: ["Brakes, filters, ignition", "Suspension & transmission", "Free fitting on select parts"] },
 ];
@@ -42,14 +43,24 @@ const Services = () => (
     <div className="space-y-8">
       {items.map((s, idx) => (
         <TiltCard key={s.title} intensity={3}>
-          <div className={`bg-card border border-border rounded-xl shadow-xl overflow-hidden grid md:grid-cols-2 gap-0 ${idx % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
-            <div className="bg-gradient-navy p-12 flex flex-col justify-center">
-              <s.icon className="h-12 w-12 text-primary mb-4" />
-              <h2 className="font-display text-3xl mb-3">{s.title}</h2>
-              <p className="text-muted-foreground leading-relaxed">{s.desc}</p>
+          <div className={`bg-card border border-border rounded-xl shadow-xl overflow-hidden grid md:grid-cols-3 gap-0 ${idx % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
+            <div className="bg-gradient-navy p-8 md:p-12 flex flex-col justify-center">
+              <s.icon className="h-10 w-10 text-primary mb-4" />
+              <h2 className="font-display text-2xl md:text-3xl mb-3">{s.title}</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
             </div>
-            <div className="p-12 flex flex-col justify-center bg-secondary/10">
-              <ul className="space-y-3 mb-8">
+            <div className="relative overflow-hidden bg-secondary/40 min-h-[240px] aspect-[16/10] md:aspect-auto">
+              <img 
+                src={getAssetImage(s.image, s.title === "Car Parts" ? "part" : s.title === "Car Repair" || s.title === "Car Buying Consulting" ? "page" : "car") || ""} 
+                alt={s.title}
+                className="absolute inset-0 w-full h-full object-cover transition-elegant group-hover:scale-110"
+                loading="lazy"
+                width={800}
+                height={500}
+              />
+            </div>
+            <div className="p-8 md:p-12 flex flex-col justify-center bg-secondary/10">
+              <ul className="space-y-3 mb-6">
                 {s.points.map(p => (
                   <li key={p} className="flex items-start gap-3 text-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
@@ -57,7 +68,7 @@ const Services = () => (
                   </li>
                 ))}
               </ul>
-              <Button asChild variant="gold" size="lg" className="self-start">
+              <Button asChild variant="gold" size="md" className="self-start">
                 <Link to={s.to}>Explore {s.title} <ArrowRight className="h-4 w-4 ml-2" /></Link>
               </Button>
             </div>

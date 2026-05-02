@@ -12,6 +12,8 @@ import { TiltCard } from "@/components/ui/TiltCard";
 import { GuideBot } from "@/components/ui/GuideBot";
 import { VideoBackground } from "@/components/ui/VideoBackground";
 import partsHeroVideo from "@/assets/herosection/parts-hero.mp4";
+import { getRepairImage } from "@/lib/repair-images";
+import { getAssetImage } from "@/lib/assets-images";
 
 interface Part {
   id: string; name: string; brand: string | null; category: string;
@@ -49,6 +51,10 @@ const Parts = () => {
         title="Genuine Car Parts — OEM & Aftermarket | Veamkodrive"
         description="Shop genuine OEM and trusted aftermarket car parts. Filter by make, model and category. Free fitting on select parts."
         path="/parts"
+        preloads={[
+          { href: partsHeroVideo, as: "video" },
+          { href: getAssetImage('carParts', 'part') || "", as: "image" }
+        ]}
       />
 
       {/* HERO SECTION */}
@@ -56,6 +62,8 @@ const Parts = () => {
         <div className="absolute inset-0 z-0">
           <VideoBackground
             src={partsHeroVideo}
+            fallbackSrc={getAssetImage('carParts', 'part') || ""}
+            poster={getAssetImage('carParts', 'part') || ""}
             fallbackAlt="Car engine bay"
             opacity={0.65}
           />
@@ -149,12 +157,15 @@ const Parts = () => {
               {visible.map(p => (
                 <TiltCard key={p.id} intensity={10} className="h-full">
                   <article className="bg-card border border-border rounded-xl overflow-hidden group hover:border-primary/60 transition-elegant hover:shadow-[0_10px_30px_-15px_rgba(212,175,55,0.2)] h-full flex flex-col">
-                    <div className="aspect-square overflow-hidden bg-secondary relative">
-                      {p.image_url ? (
-                        <img src={p.image_url} alt={p.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-elegant duration-700" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">No image</div>
-                      )}
+                    <div className="aspect-square overflow-hidden bg-secondary/50 relative ring-1 ring-border">
+                      <img 
+                        src={getRepairImage(p.name) || p.image_url || "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800"} 
+                        alt={p.name} 
+                        loading="lazy" 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-elegant duration-700" 
+                        width={300}
+                        height={300}
+                      />
                       {p.brand && (
                         <div className="absolute top-3 left-3 bg-background/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-foreground">
                           {p.brand}
@@ -174,7 +185,7 @@ const Parts = () => {
                         </div>
                         <Button size="icon" className="h-10 w-10 rounded-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={p.stock === 0} onClick={() => addItem({
                           item_type: "part", item_id: p.id, name: p.name,
-                          image_url: p.image_url, unit_price: Number(p.price),
+                          image_url: getRepairImage(p.name) || p.image_url, unit_price: Number(p.price),
                         })}>
                           <ShoppingBag className="h-4 w-4" />
                         </Button>

@@ -46,6 +46,10 @@ const Home = () => (
       description="Buy & sell premium cars, rent vehicles, book expert repair and order genuine car parts — all in one trusted destination."
       path="/"
       jsonLd={homeJsonLd}
+      preloads={[
+        { href: homeHeroVideo, as: "video" },
+        { href: heroImg, as: "image" }
+      ]}
     />
     {/* HERO */}
     <section className="relative h-[88vh] min-h-[640px] flex items-center overflow-hidden">

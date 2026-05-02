@@ -10,6 +10,11 @@ import ourShop from "@/assets/aboutUs/ourShop.jpeg";
 import whoweareImg from "@/assets/aboutUs/whoweare.jpeg";
 import workshopImg from "@/assets/aboutUs/workshop.jpeg";
 import carAudiQ7 from "@/assets/cars/Audi Q7.avif";
+import world1 from "@/assets/aboutUs/vemkoaboutusworld1.jpg";
+import world2 from "@/assets/aboutUs/vemkoaboutusworld2.avif";
+import world3 from "@/assets/aboutUs/vemkoaboutusworld3.jpg";
+import world4 from "@/assets/aboutUs/vemkoaboutusworld4.jpg";
+import world5 from "@/assets/aboutUs/vemkoaboutusworld5.jpg";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { GuideBot } from "@/components/ui/GuideBot";
 
@@ -28,12 +33,13 @@ const storyImages = [
 ];
 
 const carGallery = [
-  { src: whoweareImg, alt: "GMC" },
-  { src: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=2070", alt: "BMW M4" },
-  { src: carAudiQ7, alt: "Audi Q7" },
-  { src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2083", alt: "Lamborghini" },
-  { src: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070", alt: "Mercedes S-Class" },
-  { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2074", alt: "Luxury Interior" },
+  { src: whoweareImg, alt: "Our Heritage" },
+  { src: world1, alt: "Veamkodrive World 1" },
+  { src: carAudiQ7, alt: "Premium Fleet" },
+  { src: world2, alt: "Veamkodrive World 2" },
+  { src: world3, alt: "Veamkodrive World 3" },
+  { src: world4, alt: "Veamkodrive World 4" },
+  { src: world5, alt: "Veamkodrive World 5" },
 ];
 
 const About = () => (
@@ -47,7 +53,15 @@ const About = () => (
     {/* HERO */}
     <section className="relative h-[65vh] min-h-[520px] flex items-end overflow-hidden bg-background pb-16">
       <div className="absolute inset-0 z-0">
-        <img src={heroImg} alt="Veamkodrive showroom" className="absolute inset-0 w-full h-full object-cover opacity-60" loading="lazy" width={1920} height={1088} />
+        <img 
+          src={heroImg} 
+          alt="Veamkodrive showroom" 
+          className="absolute inset-0 w-full h-full object-cover opacity-60" 
+          loading="eager" 
+          fetchpriority="high"
+          width={1920} 
+          height={1088} 
+        />
       </div>
       <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
       <div className="container relative z-10 max-w-4xl animate-fade-up">

@@ -5,6 +5,7 @@ interface VideoBackgroundProps {
   fallbackSrc?: string;
   fallbackAlt?: string;
   opacity?: number;
+  poster?: string;
 }
 
 export const VideoBackground = ({
@@ -12,6 +13,7 @@ export const VideoBackground = ({
   fallbackSrc,
   fallbackAlt = "Background",
   opacity = 0.4,
+  poster,
 }: VideoBackgroundProps) => {
   const [failed, setFailed] = useState(false);
 
@@ -32,13 +34,14 @@ export const VideoBackground = ({
       muted
       loop
       playsInline
+      preload="auto"
+      poster={poster || fallbackSrc}
       className="absolute inset-0 w-full h-full object-cover"
       style={{ opacity }}
       onError={() => setFailed(true)}
+      {...({ fetchpriority: "high" } as any)}
     >
-      {/* Mixkit CDN allows hotlinking — primary source */}
       <source src={src} type="video/mp4" />
-      {/* Fallback if video fails */}
       {fallbackSrc && (
         <img src={fallbackSrc} alt={fallbackAlt} className="absolute inset-0 w-full h-full object-cover" style={{ opacity }} />
       )}
