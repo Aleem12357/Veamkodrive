@@ -246,7 +246,7 @@ const Repair = () => {
                       src={getRepairImage(s.service_name) || "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800"} 
                       alt={s.service_name}
                       className="w-full h-full object-cover transition-elegant group-hover:scale-110"
-                      loading="lazy"
+                      loading={services.indexOf(s) < 4 ? "eager" : "lazy"}
                       width={400}
                       height={250}
                     />

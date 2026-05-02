@@ -161,7 +161,7 @@ const Parts = () => {
                       <img 
                         src={getRepairImage(p.name) || p.image_url || "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800"} 
                         alt={p.name} 
-                        loading="lazy" 
+                        loading={parts.indexOf(p) < 4 ? "eager" : "lazy"} 
                         className="w-full h-full object-cover group-hover:scale-110 transition-elegant duration-700" 
                         width={300}
                         height={300}

@@ -30,6 +30,10 @@ const Services = () => (
       title="Our Services — Car Repair, Sales, Rental & Parts | Veamkodrive"
       description="Explore Veamkodrive's services: expert car repair, curated buy & sell, premium rentals and genuine OEM car parts — all in one place."
       path="/services"
+      preloads={[
+        { href: getAssetImage('workshop', 'page') || "", as: "image" },
+        { href: getAssetImage('transact1', 'car') || "", as: "image" }
+      ]}
     />
     <div className="text-center max-w-2xl mx-auto mb-16 animate-fade-up">
       <p className="text-sm tracking-[0.2em] uppercase text-primary mb-3">Services</p>
@@ -54,7 +58,8 @@ const Services = () => (
                 src={getAssetImage(s.image, s.title === "Car Parts" ? "part" : s.title === "Car Repair" || s.title === "Car Buying Consulting" ? "page" : "car") || ""} 
                 alt={s.title}
                 className="absolute inset-0 w-full h-full object-cover transition-elegant group-hover:scale-110"
-                loading="lazy"
+                loading={idx < 2 ? "eager" : "lazy"}
+                fetchpriority={idx < 2 ? "high" : "auto"}
                 width={800}
                 height={500}
               />
